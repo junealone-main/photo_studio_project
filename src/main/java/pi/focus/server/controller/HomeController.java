@@ -1,20 +1,39 @@
 package pi.focus.server.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import pi.focus.server.core.domain.Room;
+import pi.focus.server.core.service.api.IRoomService;
+import pi.focus.server.core.service.api.IStaticDataService;
 import pi.focus.server.service.context.mocks.ExampleContextMock;
-import pi.focus.server.service.context.mocks.InfoContextMock;
+
+import java.util.List;
 
 
 @Controller
 public class HomeController {
-    public HomeController() {}
+    public IStaticDataService staticDataService;
+    public IRoomService roomService;
+
+    public HomeController(
+            IStaticDataService staticDataService,
+            IRoomService roomService
+    ) {
+        this.staticDataService = staticDataService;
+        this.roomService = roomService;
+    }
+
+    @GetMapping("/test-db")
+    public ResponseEntity<List<Room>> getTest() {
+        return ResponseEntity.ok(roomService.getAllRooms());
+    }
 
     @GetMapping()
     public String getInfo(Model model) {
-        model.addAttribute("info", new InfoContextMock());
+        model.addAttribute("info", staticDataService.getInfo());
         return "pages/info";
     }
 
@@ -47,5 +66,4 @@ public class HomeController {
         model.addAttribute("example", new ExampleContextMock());
         return "pages/example";
     }
-    
 }
