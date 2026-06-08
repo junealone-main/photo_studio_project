@@ -1,5 +1,5 @@
 api:
-  dashboard: true
+  dashboard: false
   insecure: false
 
 entryPoints:
@@ -20,10 +20,11 @@ providers:
 certificatesResolvers:
   resolver:
     acme:
-      email: ${EMAIL_TO_NOTIFY}
       storage: /letsencrypt/acme.json
       tlsChallenge: { }
 
 log:
   level: DEBUG
   format: json
+
+
