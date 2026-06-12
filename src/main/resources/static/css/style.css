@@ -43,6 +43,9 @@
 
 :root {
     --base-font-size: 20px;
+    --header-horizontal-margin: 6rem;
+    --wrapper-width: 1400px;
+    --header-width: 1700px;
 
     --font-main: 'Manrope', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --font-accent: 'Playfair Display', Georgia, 'Times New Roman', Times, serif;
@@ -101,9 +104,13 @@
 
     --palette-dark-text-main: #F4F2DC;
     --palette-dark-text-title: #EEE8B2;
+}
 
-    --wrapper-width: 1400px;
-    --header-width: 1700px;
+@media (max-width: 1024px) {
+    :root {
+        --base-font-size: 16px;
+        --header-horizontal-margin: 1rem;
+    }
 }
 
 html {
@@ -174,7 +181,7 @@ img {
     aspect-ratio: 3 / 4;
     object-fit: cover;
     width: 100%;
-    border-radius: 1px;
+    border-radius: var(--radius-s);
     display: block;
 }
 
@@ -217,21 +224,24 @@ h3 {
 
 .main-wrapper {
     max-width: var(--wrapper-width);
-    margin: 0 auto;
+    margin: var(--space-xxl) auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 var(--space-xxl);
 }
 
 header {
     background: var(--color-primary);
 
     nav {
-        margin: 0 120px;
+        margin: 0 var(--header-horizontal-margin);
         display: flex;
         gap: var(--space-xl);
 
         .nav-link {
             margin: calc(var(--space-s) + 2px) 0;
             text-decoration: none;
-            color: var(--color-text-main);
+            color: var(--color-text-title);
             font-size: var(--text-l);
             position: relative;
             will-change: color;
@@ -278,7 +288,7 @@ header {
             width: 2rem;
             height: 2rem;
 
-            color: var(--color-text-main); 
+            color: var(--color-text-title); 
             transform: rotate(40deg);
         }
 
@@ -291,7 +301,7 @@ header {
 html[data-theme="light"] {
     #theme-toggle {
         svg {
-            color: var(--color-text-main);
+            color: var(--color-text-title);
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), color var(--time-m) ease;
             transform: rotate(0deg);
         }
@@ -302,12 +312,12 @@ html[data-theme="light"] {
     }
     
     #mask-dark-shadow {
-        cx: 22px !important;
-        cy: 4px !important;
+        cx: 22px;
+        cy: 4px;
     }
 
     #center-body {
-        r: 9px !important;
+        r: 9px;
     }
 
     #sun-rays-group {
@@ -324,8 +334,9 @@ footer {
     .footer-info {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        column-gap: var(--space-m);
         justify-content: space-between;
-        margin: 0 120px;
+        margin: 0 var(--header-horizontal-margin);
 
         >div {
             display: flex;
