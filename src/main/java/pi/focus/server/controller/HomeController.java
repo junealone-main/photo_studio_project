@@ -3,6 +3,7 @@ package pi.focus.server.controller;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,8 +80,21 @@ public class HomeController {
         return "pages/photographers";
     }
 
+    @GetMapping("/profile")
+    public String getProfile(Model model) {
+        return "pages/login"; // idk какая тут страница
+    }
+
     @GetMapping("/login")
-    public String getLogin(Model model, HttpSession session, @ModelAttribute("previousURI") String previousURI) {
+    public String getLogin(
+            HttpSession session,
+            @ModelAttribute("previousURI") String previousURI,
+            Authentication authentication
+    ) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:" + (previousURI != null ? previousURI : "/");
+        }
+
         if (previousURI != null && !previousURI.contains("/registration") && !previousURI.contains("/login")) {
             session.setAttribute("previousUri", previousURI);
         }
@@ -90,9 +104,6 @@ public class HomeController {
     @GetMapping("/registration")
     public String getRegistration(Model model) {
         return "pages/registration";
-    }
-    public String getSignup(Model model) {
-        return "pages/login";
     }
 
     @PostMapping("/registration")
