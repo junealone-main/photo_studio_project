@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @Service
-@Profile({"dev", "prod"})
+@Profile({"dev", "prod", "test"})
 public class RoomService implements IRoomService {
     @Value("${app.static-data.placeholder-path}")
     private String placeholderPath;
