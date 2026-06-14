@@ -102,7 +102,7 @@ public class HomeController {
         }
 
         if (error != null) {
-            model.addAttribute("loginError", true); 
+            model.addAttribute("loginError", true);
         } else {
             String referer = request.getHeader("Referer");
             if (referer != null && !referer.contains("/login") && !referer.contains("/registration")) {
@@ -112,6 +112,7 @@ public class HomeController {
 
         return "pages/login";
     }
+
 
     @GetMapping("/registration")
     public String getRegistration(Model model) {
