@@ -3,7 +3,7 @@ name: Build Dockerfile and push
 on:
   pull_request:
     types: [closed]
-    branches: [master]
+    branches: [main]
   workflow_dispatch: 
 
 permissions:
