@@ -1,5 +1,5 @@
 FROM ubuntu/jdk:21-24.04_stable
-LABEL authors="poer1"
+LABEL authors="junealone"
 
 WORKDIR /app
 
